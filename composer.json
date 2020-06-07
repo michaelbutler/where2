@@ -1,0 +1,34 @@
+{
+    "name": "michaelbutler/where2",
+    "description": "An extendible address parser written in PHP, using a best-guess algorithm.",
+    "type": "library",
+    "homepage": "https://github.com/michaelbutler/where2",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Butler",
+            "homepage": "https://butlerpc.net/"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/michaelbutler/where2/issues",
+        "source": "https://github.com/michaelbutler/where2/tree/master"
+    },
+    "autoload": {
+        "files": [
+        ],
+        "psr-4": {
+            "Where2\\": "src/",
+            "Where2Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7",
+        "roave/security-advisories": "dev-master",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12.25"
+    }
+}
