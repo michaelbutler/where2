@@ -1,5 +1,11 @@
 # Where2
 
+[![Build Status](https://travis-ci.org/michaelbutler/where2.svg?branch=master)](https://travis-ci.org/michaelbutler/where2)
+[![Code Coverage](https://scrutinizer-ci.com/g/michaelbutler/where2/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/michaelbutler/where2/?branch=master)
+[![Software License](https://img.shields.io/badge/license-LGPL-brightgreen.svg)](https://github.com/michaelbutler/where2/blob/master/LICENSE)
+[![Latest Commit](https://img.shields.io/github/last-commit/michaelbutler/where2/master)](https://github.com/michaelbutler/where2/commits/master)
+[![Coded in PhpStorm](https://img.shields.io/badge/Coded%20in-PhpStorm-blueviolet)](https://jetbrains.com/phpstorm)
+
 A mailing address parser written in PHP, using a best-guess algorithm. Does not
 require any external APIs, but may not be 100% accurate in all cases.  
 
