@@ -36,6 +36,36 @@ class AddressParserTest extends TestCase
     {
         return [
             [
+                'Multi, Line, Name, 93312-XYZ Test Test Road, Suite 1400, The coolest place in the world in California, Ya heard, River Stream California 99123',
+                $this->parsedAddressFromIndexedValues([
+                    'MULTI LINE NAME', // Full name
+                    '93312-XYZ TEST TEST ROAD', // Address 1
+                    'SUITE 1400', // Address 2
+                    'THE COOLEST PLACE IN THE WORLD IN CALIFORNIA YA HEARD', // Address 3
+                    'RIVER STREAM', // City
+                    'CA', // State
+                    '99123', // PostalCode
+                    '', // PostalCode extra
+                    'US', // Country
+                    '93312-XYZ', // HouseNumber
+                ]),
+            ],
+            [
+                'Martha Stewart, 15-B Countryside Road, Suite 1400, River Stream Massachusetts 45349-2441',
+                $this->parsedAddressFromIndexedValues([
+                    'MARTHA STEWART', // Full name
+                    '15-B COUNTRYSIDE ROAD', // Address 1
+                    'SUITE 1400', // Address 2
+                    '', // Address 3
+                    'RIVER STREAM', // City
+                    'MA', // State
+                    '45349', // PostalCode
+                    '2441', // PostalCode extra
+                    'US', // Country
+                    '15-B', // HouseNumber
+                ]),
+            ],
+            [
                 '35A New Jack Blvd., New York New York 10010',
                 $this->parsedAddressFromIndexedValues([
                     '', // Full name
@@ -48,7 +78,6 @@ class AddressParserTest extends TestCase
                     '', // PostalCode extra
                     'US', // Country
                     '35A', // HouseNumber
-                    '35A New Jack Blvd., New York New York 10010', // Original Raw Data
                 ]),
             ],
             [
@@ -64,7 +93,6 @@ class AddressParserTest extends TestCase
                     '9123', // PostalCode extra
                     'US', // Country
                     '487-5787', // HouseNumber
-                    '487-5787 Mollis St., City of Industry Louisiana 67973-9123  ', // Original Raw Data
                 ]),
             ],
             [
@@ -80,7 +108,6 @@ class AddressParserTest extends TestCase
                     '1234', // PostalCode extra
                     'US', // Country
                     '4348', // HouseNumber
-                    "4348 Main St.\nTesterTon, VA 83921-1234", // Original Raw Data
                 ]),
             ],
             [
@@ -96,7 +123,6 @@ class AddressParserTest extends TestCase
                     '', // PostalCode extra
                     'US', // Country
                     '343-6527', // HouseNumber
-                    '343-6527 Purus. Avenue, Logan NV 12657', // Original Raw Data
                 ]),
             ],
         ];
@@ -107,6 +133,7 @@ class AddressParserTest extends TestCase
      */
     public function testUSAddressesParsingSuccessful(string $inputAddress, ParsedAddress $expectedResult): void
     {
+        $expectedResult->setRawData($inputAddress);
         $where2parser = new AddressParser();
         $resultingAddress = $where2parser->parse($inputAddress);
         Assertions::assertAddressEquals($expectedResult, $resultingAddress);
@@ -125,7 +152,6 @@ class AddressParserTest extends TestCase
         $address->setPostalCodeExtra($values[7] ?? '');
         $address->setCountry($values[8] ?? '');
         $address->setHouseNumber($values[9] ?? '');
-        $address->setRawData($values[10] ?? '');
 
         return $address;
     }
