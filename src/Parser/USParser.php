@@ -78,9 +78,38 @@ class USParser implements ParserInterface
 
         $address->setCity($city);
 
-        $addressLine = array_pop($pieces);
+        $fullName = '';
 
-        $address->setAddressLine1($addressLine);
+        do {
+            $peek = trim($pieces[0]);
+            // Stop when we hit the house number
+            if (0 === strpos($peek, $houseNumber)) {
+                break;
+            }
+            $fullName .= $peek . ' ';
+            array_shift($pieces);
+        } while ($pieces);
+
+        $address->setFullName(trim($fullName));
+
+        // Next chunk after name is Address Line 1
+        $addressLine1 = trim(array_shift($pieces));
+        $address->setAddressLine1($addressLine1);
+
+        // Next chunk after Address Line 1 is Line 2
+        $addressLine2 = '';
+        if ($pieces) {
+            $addressLine2 = trim(array_shift($pieces));
+        }
+        $address->setAddressLine2($addressLine2);
+
+        // Any other chunks should be compacted into Address Line 3
+        $addressLine3 = '';
+        while ($pieces) {
+            $piece = trim(array_shift($pieces));
+            $addressLine3 .= $piece . ' ';
+        }
+        $address->setAddressLine3(trim($addressLine3));
 
         $address->setRawData($inputAddress);
 
@@ -129,9 +158,9 @@ class USParser implements ParserInterface
             // take the state code farthest to end of string
             $stateCode = array_pop($matches[0]);
 
-            $this->statePosition = strrpos($fullAddress, $stateCode);
+            if (is_string($stateCode) && isset(UnitedStates::STATE_LIST[$stateCode])) {
+                $this->statePosition = strrpos($fullAddress, $stateCode);
 
-            if (isset(UnitedStates::STATE_LIST[$stateCode])) {
                 return $stateCode;
             }
         }
