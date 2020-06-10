@@ -158,9 +158,9 @@ class USParser implements ParserInterface
             // take the state code farthest to end of string
             $stateCode = array_pop($matches[0]);
 
-            $this->statePosition = strrpos($fullAddress, $stateCode);
+            if (is_string($stateCode) && isset(UnitedStates::STATE_LIST[$stateCode])) {
+                $this->statePosition = strrpos($fullAddress, $stateCode);
 
-            if (isset(UnitedStates::STATE_LIST[$stateCode])) {
                 return $stateCode;
             }
         }
