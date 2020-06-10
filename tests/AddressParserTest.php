@@ -36,6 +36,22 @@ class AddressParserTest extends TestCase
     {
         return [
             [
+                '35A New Jack Blvd., New York New York 10010',
+                $this->parsedAddressFromIndexedValues([
+                    '', // Full name
+                    '35A NEW JACK BLVD.', // Address 1
+                    '', // Address 2
+                    '', // Address 3
+                    'NEW YORK', // City
+                    'NY', // State
+                    '10010', // PostalCode
+                    '', // PostalCode extra
+                    'US', // Country
+                    '35A', // HouseNumber
+                    '35A New Jack Blvd., New York New York 10010', // Original Raw Data
+                ]),
+            ],
+            [
                 '487-5787 Mollis St., City of Industry Louisiana 67973-9123  ',
                 $this->parsedAddressFromIndexedValues([
                     '', // Full name

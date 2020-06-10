@@ -129,7 +129,7 @@ class USParser implements ParserInterface
             // take the state code farthest to end of string
             $stateCode = array_pop($matches[0]);
 
-            $this->statePosition = strpos($fullAddress, $stateCode);
+            $this->statePosition = strrpos($fullAddress, $stateCode);
 
             if (isset(UnitedStates::STATE_LIST[$stateCode])) {
                 return $stateCode;
@@ -138,8 +138,8 @@ class USParser implements ParserInterface
 
         // Try to find "full state" names and use the first one encountered
         foreach (UnitedStates::STATE_LIST as $key => $fullState) {
-            if (false !== strpos($addressChunk, $fullState)) {
-                $this->statePosition = strpos($fullAddress, $fullState);
+            if (false !== strrpos($addressChunk, $fullState)) {
+                $this->statePosition = strrpos($fullAddress, $fullState);
 
                 return $key;
             }
