@@ -1,7 +1,7 @@
 # Where2
 
 A mailing address parser written in PHP, using a best-guess algorithm. Does not
-require any external APIs, but may not be 100% accurate in all cases.
+require any external APIs, but may not be 100% accurate in all cases.  
 
 Currently provides support for these countries:
 
